@@ -67,10 +67,10 @@ void got_start()
 		rand_millisec =  rand() % upper_limit_millisec_to_wait;
 
 	  /**************** STUDENT TO FILL IN START HERE ********************/
-		// Step 1
-		// Step 2
-		// Step 3
-		// Step 4
+		Display_Waiting();// Step 1
+		HAL_Delay(rand_millisec);// Step 2
+		Display_All();// Step 3
+		HAL_TIM_Base_Start_IT(&htim3);
 	  /**************** STUDENT TO FILL IN END  HERE ********************/
 	}
 void got_stop()
@@ -86,11 +86,19 @@ void got_stop()
 
 	  /**************** STUDENT TO FILL IN START HERE ********************/
       // 1.) Stop the random timer // Random timer is timer3
-
+			started_doing_reaction_timers=false;
       // 2.) Read the value of the timer -- this step provided
 		last_reaction_time_in_millisec = __HAL_TIM_GetCounter(&htim3) / 10; // Why is it divide by 10?
 
+
 	  // 3.) Display the value
+		while(got_start_button!=true){
+			MultiFunctionShield_Display(last_reaction_time_in_millisec);
+			HAL_Delay(1000);
+			MultiFunctionShield_Clear();
+			HAL_Delay(1000);
+		}
+
 
 
       /**************** STUDENT TO FILL IN END HERE ********************/
